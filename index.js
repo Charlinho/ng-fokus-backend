@@ -16,6 +16,33 @@ webpush.setVapidDetails(
   VAPID_PRIVATE_KEY
 );
 
+let subscriptions = [];
+
+app.post('/subscribe', (req, res) => {
+  const subscription = req.body;
+  subscriptions.push(subscription);
+  res.status(201).json({});
+});
+
+app.post('/send-notification', async (req, res) => {
+  const { title, body } = req.body;
+  
+  const notifications = subscriptions.map(subscription => {
+    return webpush.sendNotification(subscription, JSON.stringify({
+      title,
+      body
+    }));
+  });
+
+  try {
+    await Promise.all(notifications);
+    res.status(200).json({ message: 'Notificações enviadas com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao enviar notificações:', error);
+    res.status(500).json({ error: 'Falha ao enviar notificações' });
+  }
+});
+
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
 });
