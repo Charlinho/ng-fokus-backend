@@ -4,6 +4,7 @@
   "description": "ng-fokus-backend",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Charlinho/ng-fokus-backend/issues"
   },
-  "homepage": "https://github.com/Charlinho/ng-fokus-backend#readme"
+  "homepage": "https://github.com/Charlinho/ng-fokus-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "web-push": "^3.6.7"
+  }
 }
